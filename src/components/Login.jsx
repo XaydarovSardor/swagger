@@ -27,7 +27,6 @@ export const Login = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
             <div className="w-full max-w-md bg-slate-900/80 backdrop-blur rounded-2xl shadow-xl p-8 border border-slate-700">
-
                 <h1 className="text-2xl font-semibold text-white text-center mb-2">
                     Welcome back
                 </h1>
