@@ -1,9 +1,18 @@
-import { Login } from "./components/Login";
+import { Route, Routes } from "react-router-dom"
+import { Footer, Header, PublicLayout } from "./layout"
+import { Login } from "./pages"
 
 function App() {
 
   return (
-    <Login/>
+    <>
+    <Header/>
+      <Routes>
+        <Route path="/" element={<PublicLayout />} />
+        <Route path="/login" element={<Login/>}/>
+      </Routes>
+      <Footer/>
+    </>
   )
 }
 
