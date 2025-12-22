@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
-import { Title } from "../components"
+import { Title } from "../components/Title"
 
-export const PublicLayout = () => {
+export const Home = () => {
     return (
         <div className="min-h-screen bg-gray-50 text-gray-800">
             {/* Hero Section */}
@@ -27,7 +27,6 @@ export const PublicLayout = () => {
                     </div>
                 </div>
             </section>
-
             <section className="max-w-7xl mx-auto px-6 py-16">
                 <h3 className="text-3xl font-bold text-center mb-12">Nima qila olasiz</h3>
                 <div className="grid md:grid-cols-3 gap-8">

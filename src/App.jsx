@@ -1,17 +1,14 @@
-import { Route, Routes } from "react-router-dom"
-import { Footer, Header, PublicLayout } from "./layout"
-import { Login } from "./pages"
-
+import { Toaster } from 'react-hot-toast';
+import { AppProviders } from "../AppProviders";
+import { Router } from "../router/router";
 function App() {
 
   return (
     <>
-    <Header/>
-      <Routes>
-        <Route path="/" element={<PublicLayout />} />
-        <Route path="/login" element={<Login/>}/>
-      </Routes>
-      <Footer/>
+      <AppProviders>
+        <Router/>
+      </AppProviders>
+      <Toaster position="top-center" />
     </>
   )
 }

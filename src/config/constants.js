@@ -15,4 +15,5 @@ export const ROUTES = {
     ADMIN: "/admin",
     STAFF: "/staff",
     AUTHOR: "/author",
+    PROFILE: "/profile"
 }
