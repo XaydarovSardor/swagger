@@ -7,8 +7,10 @@ import { AuthorDashboard } from "../src/pages/author/AuthorDashboard";
 import { Home } from "../src/pages";
 import { RootLayout } from "../src/publicLayout/RootLayout";
 import { AdminHome } from "../src/pages/admin/AdminHome";
-import { CreateStaff } from "../src/pages/admin/CreateStaff";
 import { CreateDepartment } from "../src/pages/admin/CreateDepartment";
+import { StaffDashboard } from "../src/pages/staff/StaffDashboard";
+import { CreateStaff } from "../src/pages/admin/CreateStaff";
+import { RegisterAuthor } from "../src/publicLayout/RegisterAuthor";
 
 export const Router = () => {
     return (
@@ -38,6 +40,15 @@ export const Router = () => {
                         </ProtectedRoute>
                     }
                 />
+                <Route
+                    path="staff"
+                    element={
+                        <ProtectedRoute role={ROLES.STAFF}>
+                            <StaffDashboard />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route path="register" element={<RegisterAuthor/>}/>
             </Route>
         </Routes>
     );

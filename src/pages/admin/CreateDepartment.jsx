@@ -5,18 +5,25 @@ import { useDepartment } from "../../context/departments/useDepartment"
 export const CreateDepartment = () => {
 
 
-  const [departmentName, setDepartmentName] = useState("")
-  const { departments, loading, departmentErr, createDepartmentFunc,deleteDepartmentFunc } = useDepartment()
+  const [formData, setFormData] = useState({
+    depType: "FACULTY",
+    nameUz: "",
+    nameEn: "",
+    nameRu: "",
+    isBlocked: false,
+  })
+
+  const { departments, loading, departmentErr, createDepartmentFunc, deleteDepartmentFunc } = useDepartment()
   const newDepartment = async (e) => {
     e.preventDefault()
-    await createDepartmentFunc(data)
-  }
-  const data = {
-    depType: "FACULTY",
-    nameUz: departmentName,
-    nameEn: departmentName,
-    nameRu: departmentName,
-    isBlocked: false
+    await createDepartmentFunc(formData)
+    setFormData({
+      depType: "FACULTY",
+      nameUz: "",
+      nameEn: "",
+      nameRu: "",
+      isBlocked: false,
+    })
   }
   return (
     <div className="flex flex-col gap-6">
@@ -27,31 +34,107 @@ export const CreateDepartment = () => {
 
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-2 bg-white rounded-2xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4 text-gray-700">
-            Yangi department
+          <h2 className="text-lg font-semibold mb-6 text-gray-700">
+            Yangi department yaratish
           </h2>
 
-          <form onSubmit={(e) => newDepartment(e)} className="flex flex-col gap-4">
-            <input
-              value={departmentName}
-              onChange={(e) => setDepartmentName(e.target.value)}
-              type="text"
-              placeholder="Department nomi"
-              className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <textarea
-              placeholder="Department haqida qisqacha"
-              rows={4}
-              className="p-3 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <button
-              type="submit"
-              className="self-start px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-            >
-              {loading ? "Department creating..." : "Create Department"}
-            </button>
+          <form onSubmit={newDepartment} className="grid grid-cols-2 gap-5">
+
+            <div className="col-span-2">
+              <label className="block text-sm text-gray-600 mb-1">
+                Department turi
+              </label>
+              <select required value={formData.depType} onChange={(e) => setFormData({
+                ...formData,
+                depType: e.target.value
+              })}
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="">Department turini tanlang</option>
+                <option value="FACULTY">FACULTY</option>
+                <option value="CONFERENCE">CONFERENCE</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">
+                Nomi (UZ)
+              </label>
+              <input
+                required
+                value={formData.nameUz}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  nameUz: e.target.value
+                })}
+                type="text"
+                placeholder="Masalan: Axborot texnologiyalari"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">
+                Nomi (EN)
+              </label>
+              <input
+                required
+                value={formData.nameEn}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  nameEn: e.target.value
+                })}
+                type="text"
+                placeholder="For example: Information Technology"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-sm text-gray-600 mb-1">
+                Nomi (RU)
+              </label>
+              <input
+                required
+                value={formData.nameRu}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  nameRu: e.target.value
+                })}
+                type="text"
+                placeholder="Например: Информационные технологии"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <div className="col-span-2 flex items-center gap-3 mt-2">
+              <input
+                checked={formData.isBlocked}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  isBlocked: e.target.checked,
+                })}
+                type="checkbox"
+                id="isBlocked"
+                className="w-4 h-4 accent-indigo-600"
+              />
+              <label htmlFor="isBlocked" className="text-sm text-gray-600">
+                Department bloklangan (faol emas)
+              </label>
+            </div>
+
+            <div className="col-span-2">
+              <button
+                type="submit"
+                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+              >
+                Create Department
+              </button>
+            </div>
+
           </form>
         </div>
+
 
         <div className="col-span-1 bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-lg font-semibold mb-4 text-gray-700">
@@ -86,7 +169,7 @@ export const CreateDepartment = () => {
                     >
                       {dep.isBlocked ? "Blocked" : "Active"}
                     </span>
-                    <button onClick={()=>deleteDepartmentFunc(dep.id)} className="self-start px-6 py-1 bg-red-600 text-white rounded-lg hover:bg-indigo-700 transition">Delete</button>
+                    <button onClick={() => deleteDepartmentFunc(dep.id)} className="self-start px-6 py-1 bg-red-600 text-white rounded-lg hover:bg-indigo-700 transition">Delete</button>
                   </li>
                 ))
               )}
@@ -97,6 +180,7 @@ export const CreateDepartment = () => {
         </div>
 
       </div>
+
     </div>
   )
 }

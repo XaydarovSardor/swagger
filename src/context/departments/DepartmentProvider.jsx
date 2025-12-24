@@ -2,12 +2,15 @@ import { useEffect, useState } from "react"
 import { DepartmentContext } from "./DepartmentContext"
 import { createNewDepartment, deleteDepartment, getDepartments } from "../../pages/admin/createNewDepartment"
 import toast from "react-hot-toast"
+import { useAuth } from "../auth/useAuth"
 
 export const DepartmentProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
+  const { user, isLoggedIn } = useAuth()
   const [departments, setDepartments] = useState([])
   const [departmentErr, setDepartmentErr] = useState("")
   useEffect(() => {
+    console.log(user);
     const getAllDepartments = async () => {
       try {
         setLoading(true)
@@ -20,7 +23,8 @@ export const DepartmentProvider = ({ children }) => {
       }
     }
     getAllDepartments()
-  }, [])
+
+  }, [isLoggedIn, user])
   const createDepartmentFunc = async (data) => {
     try {
       setLoading(true)
@@ -56,6 +60,8 @@ export const DepartmentProvider = ({ children }) => {
     }
 
   }
+
+
   return (
     <DepartmentContext.Provider value={
       {

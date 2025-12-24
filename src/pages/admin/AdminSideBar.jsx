@@ -14,8 +14,7 @@ export const AdminSideBar = () => {
                     to="/admin/staff"
                     className="flex items-center gap-2 text-gray-700 hover:text-indigo-600"
                 >
-                    <UserPlus2 size={18} />
-                    <span>Create Staff</span>
+                    <span>Staff section</span>
                 </Link>
 
                 <Link

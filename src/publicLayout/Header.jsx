@@ -35,7 +35,7 @@ export const Header = () => {
                     <Link to="/authors" className="text-gray-600 hover:text-indigo-600">Authors</Link>
                     <Link to="/documents" className="text-gray-600 hover:text-indigo-600">Documents</Link>
                     {isLoggedIn ? <>
-                        <button onClick={handleProfileClick} className="px-4 py-2 cursor-pointer rounded-lg border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition" to={"/profile"}>Profile</button>
+                        {user.userRole !== "STAFF" && <button onClick={handleProfileClick} className="px-4 py-2 cursor-pointer rounded-lg border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition" to={"/profile"}>Profile</button>}
                         <button onClick={logoutFunc} className="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer transition" to={"/profile"}>Logout</button>
                     </> : <>
                         <Link
