@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { useAuth } from "../context/auth/useAuth"
+import { ROLES, ROUTES } from "../config/constants"
 
 export const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const { loginFunc, loading, authError } = useAuth()
+    const { loginFunc, loading, authError, user, isLoggedIn } = useAuth()
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await loginFunc({username,password})
+        await loginFunc({ username, password })
     }
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -15,7 +16,7 @@ export const Login = () => {
                 <h2 className="text-2xl font-bold text-center mb-6 text-indigo-600">Login</h2>
                 {authError && <p className="text-red-500 mb-4 text-center">{authError}</p>}
 
-                <form onSubmit={(e)=>handleSubmit(e)} className="space-y-4">
+                <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
                     <div>
                         <label className="block text-gray-700 mb-2">Username</label>
                         <input
